@@ -182,19 +182,19 @@ class AkApi
     /**
      * Check Access Code.
      *
-     * @param string $item_id item ıd
+     * HUBIZZ MODIFICATION: License check bypassed
+     * Original code checked for file: storage/.{item_id}
+     * Now always returns true - no license verification needed
      *
-     * @throws Exception
+     * @param string $item_id item ıd (not used in license-free version)
      *
-     * @return array|false|object array or object on success, false|Exception on failure
+     * @return bool Always returns true (license bypassed)
      */
     public function checkAccessCode($item_id = '')
     {
-        if ($item_id === '') {
-            $item_id = config('buzzy.item_id');
-        }
-
-        return is_file(storage_path('.' . $item_id));
+        // HUBIZZ: License-free - no external verification required
+        // Original: return is_file(storage_path('.' . $item_id));
+        return true;
     }
 
     /**

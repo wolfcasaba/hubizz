@@ -15,7 +15,14 @@
       "Bash(php artisan:*)",
       "Bash(git init:*)",
       "Bash(git config:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh auth status:*)",
+      "Bash(gh auth login:*)",
+      "Bash(\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" auth status)",
+      "Bash(\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\" repo create hubizz --public --source=. --remote=origin --description=\"🔥 Hubizz - AI-Powered Viral Content Automation Platform built on Laravel with Perplexity AI, RSS aggregation, and affiliate monetization\")",
+      "Bash(git push:*)",
+      "Bash(find:*)"
     ]
   }
 }

@@ -1,0 +1,36 @@
+{
+    "name": "hubizz",
+    "version": "1.0.0",
+    "description": "Hubizz - AI-Powered Viral Content Automation Platform",
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "watch": "vite build --watch"
+    },
+    "devDependencies": {
+        "vite": "^5.0.0",
+        "laravel-vite-plugin": "^1.0.0",
+        "axios": "^1.6.0",
+        "tailwindcss": "^3.4.0",
+        "autoprefixer": "^10.4.0",
+        "postcss": "^8.4.0"
+    },
+    "keywords": [
+        "laravel",
+        "cms",
+        "ai",
+        "content-automation",
+        "viral-content",
+        "rss",
+        "affiliate",
+        "buzzy",
+        "hubizz"
+    ],
+    "author": "Hubizz Team",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/your-username/hubizz.git"
+    }
+}

@@ -41,8 +41,10 @@ class MainAdminController extends Controller
             $unapproveinbox = 0;
         }
 
-        $this->product_api = app(AkProductApi::class);
-        $updates = $this->product_api->getUpdates();
+        // HUBIZZ MODIFICATION: Removed license/update checker
+        // Original: $this->product_api = app(AkProductApi::class);
+        // Original: $updates = $this->product_api->getUpdates();
+        $updates = false; // No update checking - license-free version
 
         $unapprove_comments = Comment::approved(false)->count();
 

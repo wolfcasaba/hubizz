@@ -142,133 +142,57 @@ class AkProductApi
     /**
      * Init updates.
      *
-     * @return void|bool
+     * HUBIZZ MODIFICATION: Disable automatic update checks
+     * This prevents daily API calls to Akbilisim servers
+     *
+     * @return bool
      */
     private function initUpdates()
     {
-        if (!empty($this->updates) || !$this->api->checkAccessCode()) {
-            return true;
-        }
-
-        try {
-            if (file_exists(storage_path($this->updates_file))) {
-                $update = file_get_contents(storage_path($this->updates_file), true);
-                $this->updates = json_decode($update, true);
-            }
-
-            $next_check = isset($this->updates['next_check']) ? $this->updates['next_check'] : 0;
-
-            if (!$next_check || $next_check <= Carbon::now()->getTimestamp()) {
-                $response = $this->checkUpdates();
-
-                if ($response) {
-                    $this->updates = $response;
-                    $this->updates['next_check'] = Carbon::now()->addDays(1)->getTimestamp();
-                    @file_put_contents(storage_path($this->updates_file), json_encode($this->updates));
-                }
-            }
-        } catch (Exception $e) {
-            return false;
-        }
-
+        // HUBIZZ: Disabled automatic update checking
+        // Original code would connect to Akbilisim API daily
         return true;
     }
 
     /**
      * Get updates.
      *
-     * @return array|bool
+     * HUBIZZ MODIFICATION: Return false to disable update notifications
+     *
+     * @return bool
      */
     public function getUpdates()
     {
-        if (empty($this->updates) || !is_array($this->updates)) {
-            return false;
-        }
-
-        $current_version = config('buzzy.version');
-        $this->updates['current_version'] = $current_version;
-        $this->updates['update_required'] = version_compare($this->updates['version'], $current_version, '>');
-
-        return $this->updates;
+        // HUBIZZ: No update checking - return false to disable notifications
+        return false;
     }
 
     /**
      * Retrieve product theme updates.
      *
+     * HUBIZZ MODIFICATION: Return empty array to disable theme update checks
+     *
      * @return array
      */
     public function getThemes()
     {
-        if (empty($this->updates['themes'])) {
-            return false;
-        }
-
-        $themes = collect($this->updates['themes'])->map(
-            function ($theme) {
-                $code = $theme['code'];
-                $item_id = $theme['item_id'] = isset($theme['item_id']) ? $theme['item_id'] : null;
-                $version = isset($theme['version']) ? $theme['version'] : false;
-
-                if (isset($theme['price']) && $theme['price'] !== 'FREE' && $item_id) {
-                    $current_version = config($code . '.version');
-                    $theme['activation_requied'] = !$this->api->checkAccessCode($item_id);
-                    $theme['instaled'] = env($code . '_INSTALLED');
-                    $theme['update_required'] = $version && version_compare($version, $current_version, '>');
-                } else {
-                    $current_version = config('buzzy.themes.' . $code . '.version');
-                    $theme['instaled'] = true;
-                    $theme['activation_requied'] = false;
-                    $theme['update_required'] = false;
-                }
-
-                $theme['current_version'] = $current_version;
-
-                $theme['active'] = get_buzzy_config('CurrentTheme') == $theme['code'];
-
-                return $theme;
-            }
-        )->all();
-
-        return $themes;
+        // HUBIZZ: No theme update checking - return empty array
+        // Original code would fetch themes from Akbilisim API
+        return [];
     }
 
     /**
      * Retrieve product plugin updates.
      *
+     * HUBIZZ MODIFICATION: Return empty array to disable plugin update checks
+     *
      * @return array
      */
     public function getPlugins()
     {
-        if (empty($this->updates['plugins'])) {
-            return false;
-        }
-
-        $plugins = collect($this->updates['plugins'])->map(
-            function ($plugin) {
-                $code = $plugin['code'];
-                $item_id = $plugin['item_id'] = isset($plugin['item_id']) ? $plugin['item_id'] : null;
-                $version = isset($plugin['version']) ? $plugin['version'] : false;
-
-                if (isset($plugin['price']) && $plugin['price'] !== 'FREE' && $item_id) {
-                    $current_version = config($code . '.version');
-                    $plugin['activation_requied'] = !$this->api->checkAccessCode($item_id);
-                    $plugin['instaled'] = env($code . '_INSTALLED');
-                    $plugin['update_required'] = $version && version_compare($version, $current_version, '>');
-                } else {
-                    $current_version = config('buzzy.plugins.' . $code . '.version');
-                    $plugin['instaled'] = true;
-                    $plugin['activation_requied'] = false;
-                    $plugin['update_required'] = false;
-                }
-
-                $plugin['current_version'] = $current_version;
-                $plugin['active'] = get_buzzy_config('p_' . $code) == 'on';
-
-                return $plugin;
-            }
-        )->all();
-
-        return $plugins;
+        // HUBIZZ: No plugin update checking - return empty array
+        // Original code would fetch plugins from Akbilisim API
+        return [];
     }
 
     /**
