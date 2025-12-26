@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp list)",
+      "Bash(test:*)",
+      "Bash(node:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp:*)",
+      "Bash(docx2txt:*)",
+      "Bash(claude auth logout:*)",
+      "Bash(dir:*)",
+      "Bash(file:*)",
+      "Bash(unzip:*)",
+      "Bash(cat:*)",
+      "Bash(php artisan:*)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
